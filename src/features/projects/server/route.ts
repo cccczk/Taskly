@@ -254,6 +254,22 @@ const app = new Hono()
                 PROJECTS_ID,
                 projectId
             )
+            // 删除与该项目关联的所有任务
+            const tasks = await databases.listDocuments(
+                DATABASES_ID,
+                TASKS_ID,
+                [
+                    Query.equal("projectId", projectId)
+                ]
+            );
+
+            for (const task of tasks.documents) {
+                await databases.deleteDocument(
+                    DATABASES_ID,
+                    TASKS_ID,
+                    task.$id
+                );
+            }
             const member = await getMember({
                 databases,
                 workspaceId: existingProject.workspaceId,

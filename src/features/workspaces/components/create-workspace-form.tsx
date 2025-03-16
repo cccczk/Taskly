@@ -36,35 +36,6 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
             image: undefined,
         }
     })
-    // const onSubmit = (values: z.infer<typeof createWorkspacesSchema>) => {
-    //     const formData = new FormData();
-
-    //     console.log("原始 values:", values); // 检查 values 是否正确
-
-    //     if (values.name) {
-    //         formData.append("name", values.name);
-    //     } else {
-    //         console.warn("⚠️ name 为空");
-    //     }
-
-    //     if (values.image instanceof File) {
-    //         formData.append("image", values.image);
-    //     } else {
-    //         console.warn("⚠️ image 为空或不是 File 类型:", values.image);
-    //     }
-
-    //     console.log("最终 formData 内容:", [...formData.entries()]); // 打印 formData 的内容
-
-    //     mutate(formData, {
-    //         onSuccess: ({data}) => {
-    //             form.reset()
-    //             // onCancel?.()
-    //             router.push(`/workspaces/${data.$id}`)
-    //         }
-    //     });
-    // };
-
-
 
     const onSubmit = (values: z.infer<typeof createWorkspacesSchema>) => {
         const finalValues = {
@@ -123,7 +94,7 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
                                 control={form.control}
                                 name="image"
                                 render={({ field }) => (
-                                    <div className="felx flex-col gap-y-2">
+                                    <div className="flex flex-col gap-y-2">
                                         <div className="flex items-center gap-x-5">
                                             {field.value ? (
                                                 <div className="size-[72px] relative rounded-md overflow-hidden">

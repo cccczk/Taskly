@@ -129,7 +129,7 @@ export const EditProjectForm = ({ onCancel, initialValues }: EditProjectFormProp
                                     control={form.control}
                                     name="image"
                                     render={({ field }) => (
-                                        <div className="felx flex-col gap-y-2">
+                                        <div className="flex flex-col gap-y-2">
                                             <div className="flex items-center gap-x-5">
                                                 {field.value ? (
                                                     <div className="size-[72px] relative rounded-md overflow-hidden">

@@ -221,8 +221,3 @@ export const useWorkspaceId = () => {
 ## 后期修改 只剩一人移除成员时无提示 自己是管理员设置自己是成员也没有提示 提示太少
 
 ## 创建了error处理界面 通过在app下的error.tsx 和loader
-
-## 登录有时候会突然失效然后无法再次登录
-
-## setting page的集体问题
-updateproject后 已经在editprojectform删除了form.reset还是没用 表单会重置为修改前的值 但是刷新浏览器又正常

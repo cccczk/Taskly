@@ -21,15 +21,22 @@ import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id"
 import { formatDistanceToNow } from "date-fns"
 import { CalendarIcon, PlusIcon, SettingsIcon } from "lucide-react"
 import Link from "next/link"
+import { useEffect } from "react"
+import { toast } from "sonner"
 
 export const WorkspaceIdClient = () => {
     const workspaceId = useWorkspaceId()
+    const { open: createProject } = useCreateProjectModal()
     const { data: analytics, isLoading: isLoadingAnalytics } = useGetWorkspaceAnalytics({ workspaceId })
     const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({ workspaceId })
     const { data: projects, isLoading: isLoadingProjects } = useGetProjects({ workspaceId })
     const { data: members, isLoading: isLoadingMembers } = useGetMembers({ workspaceId })
 
-
+    useEffect(() => {
+        if (projects && projects.total === 0) {
+            createProject(); // 自动打开新增项目模态框
+        }
+    },[projects])
 
 
     const isLoading =
@@ -47,7 +54,7 @@ export const WorkspaceIdClient = () => {
         <div className="h-full flex flex-col space-y-4">
             <Analytics data={analytics} />
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                <TaskList data={tasks.documents} total={tasks.total} />
+                <TaskList data={tasks.documents} total={tasks.total} isProjectsExist={ projects.total === 0 ? false : true} />
                 <ProjectList data={projects.documents} total={projects.total} />
                 <MemberList data={members.documents} total={members.total}/>
             </div>
@@ -57,22 +64,33 @@ export const WorkspaceIdClient = () => {
 
 interface TaskListProps {
     data: Task[],
-    total: number
+    total: number,
+    isProjectsExist: boolean
 }
 
-export const TaskList = ({ data, total }: TaskListProps) => {
+export const TaskList = ({ data, total, isProjectsExist }: TaskListProps) => {
     const workspaceId = useWorkspaceId()
     const { open: createTask } = useCreateTaskModal()
+    const { open: createProject } = useCreateProjectModal();
+
+    const handleCreateTask = () => {
+        if (!isProjectsExist) {
+            toast.warning("请先创建项目，然后再添加任务！");
+            createProject(); // 引导用户创建项目
+            return;
+        }
+        createTask();
+    };
     return (
         <div className="flex flex-col gap-y-4 col-span-1">
             <div className="bg-muted rounded-lg p-4">
                 <div className="flex items-center justify-between">
-                    <p className="txet-lg font-semibold">
+                    <p className="text-lg font-semibold">
                         任务数量: ({total})
                     </p>
-                    <Button variant="muted" size="icon" onClick={createTask}>
-                        <PlusIcon className="szie-4 text-neutral-400" />
-
+                    <Button variant="muted" size="lg" onClick={() => handleCreateTask()}>
+                        <PlusIcon className="size-4 text-neutral-400" />
+                        新增任务
                     </Button>
                 </div>
                 <DottedSeparator className="my-4" />
@@ -96,17 +114,20 @@ export const TaskList = ({ data, total }: TaskListProps) => {
                                     </CardContent>
                                 </Card>
                             </Link>
+                            <Button variant="muted" className="mt-4 w-full" asChild>
+                                <Link href={`/workspaces/${workspaceId}/tasks`}>
+                                    展示所有任务
+                                </Link>
+                            </Button>
                         </li>
+                        
                     ))}
+                    
                     <li className="text-sm text-muted-foreground text-center hidden first-of-type:block">
                         暂时没有任务
                     </li>
                 </ul>
-                <Button variant="muted" className="mt-4 w-full" asChild>
-                    <Link href={`/workspaces/${workspaceId}/tasks`}>
-                        展示所有任务
-                    </Link>
-                </Button>
+
             </div>
         </div>
     )
@@ -122,17 +143,18 @@ export const ProjectList = ({ data, total }: ProjectListProps) => {
     const workspaceId = useWorkspaceId()
     return (
         <div className="flex flex-col gap-y-4 col-span-1">
-            <div className="bg-white border rounded-lg p-4">
+            <div className=" bg-white border rounded-lg p-4">
                 <div className="flex items-center justify-between">
-                    <p className="txet-lg font-semibold">
+                    <p className="text-lg font-semibold">
                         项目数量: ({total})
                     </p>
-                    <Button variant="secondary" size="icon" onClick={createProject}>
-                        <PlusIcon className="szie-4 text-neutral-400" />
+                    <Button variant="secondary" size="lg" onClick={createProject}>
+                        <PlusIcon className="size-5 text-neutral-400" />
+                        新增项目
                     </Button>
                 </div>
                 <DottedSeparator className="my-4" />
-                <ul className="grid grid-flow-cols-1 lg:grid-cols-2 gap-4">
+                <ul className="grid grid-cols-1 lg:grid-cols-1 gap-4">
                     {data.map((project) => (
                         <li key={project.$id}>
                             <Link href={`/workspaces/${workspaceId}/projects/${project.$id}`}>
@@ -165,12 +187,13 @@ export const MemberList = ({ data, total }: MemberListProps) => {
         <div className="flex flex-col gap-y-4 col-span-1">
             <div className="bg-white border rounded-lg p-4">
                 <div className="flex items-center justify-between">
-                    <p className="txet-lg font-semibold">
+                    <p className="text-lg font-semibold">
                         成员数量: ({total})
                     </p>
-                    <Button asChild variant="secondary" size="icon" >
+                    <Button asChild variant="secondary" size="lg" >
                         <Link href={`/workspaces/${workspaceId}/members`}>
-                            <SettingsIcon className="szie-4 text-neutral-400" />
+                            <SettingsIcon className="size-4 text-neutral-400" />
+                            成员管理
                         </Link>
 
                     </Button>

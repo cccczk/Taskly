@@ -41,7 +41,7 @@ export const TaskActions = ({ id, projectId, children }: TaskActionsProps) => {
         router.push(`/workspaces/${workspaceId}/tasks/${projectId}`)
     }
     return (
-        <div className="felx justify-end">
+        <div className="flex justify-end">
             <ConfirmDialog />
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
