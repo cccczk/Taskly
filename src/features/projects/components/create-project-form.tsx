@@ -68,7 +68,7 @@ export const CreateProjectForm = ({ onCancel }: CreateProjectFormProps) => {
         <Card className="w-full h-full border-none shadow-none">
             <CardHeader className="flex p-7">
                 <CardTitle className="text-xl font-bold">
-                    Create a new project
+                    创建一个新项目
                 </CardTitle>
             </CardHeader>
             <div className="px-7">
@@ -84,7 +84,7 @@ export const CreateProjectForm = ({ onCancel }: CreateProjectFormProps) => {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>
-                                            Project Name
+                                            项目名称
                                         </FormLabel>
                                         <FormControl>
                                             <Input
