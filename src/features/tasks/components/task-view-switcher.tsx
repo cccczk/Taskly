@@ -53,8 +53,6 @@ export const TaskViewSwitcher = ({ hideProjectFilter }: TaskViewSwitcherProps) =
     }, [bulkUpdate])
 
 
-
-
     return (
         <Tabs
             defaultValue={view}
