@@ -124,7 +124,7 @@ export const EditWorkspaceForm = ({ onCancel, initialValues }: EditWorkspaceForm
                 <CardHeader className="flex flex-row items-center gap-x-4 space-y-0">
                     <Button size="sm" variant="secondary" onClick={onCancel ? onCancel : () => router.push(`/workspaces/${initialValues.$id}`)}>
                         <ArrowLeftIcon className="size-4 mr-2" />
-                        Back
+                        返回
                     </Button>
                     <CardTitle className="text-xl font-bold">
                         {initialValues.name}
@@ -143,7 +143,7 @@ export const EditWorkspaceForm = ({ onCancel, initialValues }: EditWorkspaceForm
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>
-                                                Workspace Name
+                                                工作区名称
                                             </FormLabel>
                                             <FormControl>
                                                 <Input
@@ -182,13 +182,13 @@ export const EditWorkspaceForm = ({ onCancel, initialValues }: EditWorkspaceForm
                                                     </Avatar>
                                                 )}
                                                 <div className="flex flex-col ">
-                                                    <p className="text-sm">Workspace Icon</p>
+                                                    <p className="text-sm">工作区图标</p>
                                                     <p className="text-sm text-muted-foreground">
                                                         JPG, PNG, SVG or JPEG, max 1MB
                                                     </p>
                                                     <input className="hidden" accept=".jpg, .png, .jpeg, .svg" type="file" ref={inputRef} disabled={isPending} onChange={handleImageChange} />
                                                     <Button type="button" disabled={isPending} variant="teritary" size="xs" className="w-fit mt-2" onClick={() => inputRef.current?.click()}>
-                                                        Upload Image
+                                                        上传图片
                                                     </Button>
                                                 </div>
                                             </div>
