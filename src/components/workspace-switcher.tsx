@@ -15,7 +15,7 @@ export const WorkspacesSwitcher = () => {
     const router = useRouter()
     const { data: workspaces } = useGetWorkspaces()
     const { open } = useCreateWorkspaceModal()
-    
+
     const onSelect = (id: string) => {
         router.push(`/workspaces/${id}`)
     }
@@ -28,7 +28,7 @@ export const WorkspacesSwitcher = () => {
             </div>
             <Select onValueChange={onSelect} value={workspaceId}>
                 <SelectTrigger className="w-full bg-neutral-200 font-medium p-1">
-                    <SelectValue placeholder="No workspace selected" />
+                    <SelectValue placeholder="没有选中工作区" />
                 </SelectTrigger>
                 <SelectContent>
                     {workspaces?.documents.map((workspace) => (

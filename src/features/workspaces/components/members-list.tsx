@@ -21,7 +21,7 @@ import { useConfirm } from "@/hooks/use-confirm"
 
 export const MembersList = () => {
     const workspaceId = useWorkspaceId()
-    const [ConfirmDialog,confirm] = useConfirm(
+    const [ConfirmDialog, confirm] = useConfirm(
         "移除成员",
         "这将会从当前工作区中移除该成员",
         "destructive"
@@ -38,19 +38,19 @@ export const MembersList = () => {
         isPending: isUpdatingMember
     } = useUpdateMember()
 
-    const handleUpdateMember = (memberId: string,role: MemberRole) => {
+    const handleUpdateMember = (memberId: string, role: MemberRole) => {
         updateMember({
             json: { role },
-            param: {memberId}
+            param: { memberId }
         })
     }
 
     const handleDeleteMember = async (memberId: string) => {
         const ok = await confirm()
         if (!ok) return
-        
-        deleteMember({ param: {memberId} }, {
-            onSuccess: ()=> {
+
+        deleteMember({ param: { memberId } }, {
+            onSuccess: () => {
                 window.location.reload()
             }
         })
@@ -100,7 +100,7 @@ export const MembersList = () => {
                                     <DropdownMenuContent side="bottom" align="end">
                                         <DropdownMenuItem
                                             className="font-medium"
-                                            onClick={() => handleUpdateMember(member.$id,MemberRole.ADMIN)}
+                                            onClick={() => handleUpdateMember(member.$id, MemberRole.ADMIN)}
                                             disabled={isUpdatingMember}
                                         >
                                             设为管理员
