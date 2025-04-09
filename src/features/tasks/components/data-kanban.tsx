@@ -18,7 +18,7 @@ type TasksState = {
 
 interface DataKanbanProps {
     data: Task[]
-    onChange: (tasks: { $id: string; status: TaskStatus; position:number}[]) =>void
+    onChange: (tasks: { $id: string; status: TaskStatus; position: number }[]) => void
 }
 
 
@@ -44,7 +44,7 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
         })
         return initialTasks
 
-        
+
     })
 
     useEffect(() => {
@@ -64,7 +64,7 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
         })
 
         setTasks(newTasks)
-    },[data])
+    }, [data])
 
     const onDragEnd = useCallback((result: DropResult) => {
         // 如果用户把任务拖到了不能放置的地方，操作会被忽略

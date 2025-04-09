@@ -19,7 +19,6 @@ export const Projets = () => {
     const workspaceId = useWorkspaceId()
     const { data } = useGetProjects({ workspaceId })
 
-    
 
     return (
         <div className="flex flex-col gap-y-2">
@@ -37,7 +36,7 @@ export const Projets = () => {
                             "flex items-center gap-2.5 p-2.5 rounded-md hover:opacity-75 transition cursor-pointer text-neutral-500",
                             isActive && "bg-white shadow-sm hover:opacity-100 text-primary"
                         )}>
-                            <ProjectAvatar image={project.iamgeUrl} name={project.name} />
+                            <ProjectAvatar image={project.imageUrl} name={project.name} />
                             <span className="truncate">
                                 {project.name}
                             </span>
